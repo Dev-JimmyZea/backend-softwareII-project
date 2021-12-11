@@ -25,12 +25,12 @@ const UserSchema = new Schema({
     career: {
         type: Schema.Types.ObjectId,
         ref: 'career',
-        required: true
     },
 
     email: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
 
     password: {
@@ -38,12 +38,13 @@ const UserSchema = new Schema({
         required: true
     },
 
-    userType: {
+    role: {
         type: String,
         trim: true,
         enum: [
-            'student',
-            'admin'
+            'STUDENT',
+            'ADMIN',
+            'SUPERADMIN'
         ]
     },
 

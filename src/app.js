@@ -6,6 +6,7 @@ const app = express();
 const cors = require('cors');
 
 require('../drivers/connect-mongo');
+require('dotenv').config();
 
 //settings
 app.set('port', process.env.PORT || 4000);
@@ -17,7 +18,7 @@ app.use(cors());
 
 
 //routes
-// app.use('/product',require('../routes/products'));
-// app.use('/detail', require('../routes/details'));
+app.use('/user',require('../routes/users'));
+app.use('/career', require('../routes/careers'));
 // app.use('/bill',require('../routes/bills'));
 module.exports = app;
