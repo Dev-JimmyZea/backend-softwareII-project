@@ -24,6 +24,7 @@ module.exports = {
 
     getUser: async (req, res) => {
         try {
+            console.log(req.params)
             const user = await User.findOne({
                 userId: req.params.userId
             });
@@ -53,6 +54,7 @@ module.exports = {
             const userExist = await User.findOne({
                 email: user.email
             });
+            
             if (userExist) {
                 return res.status(400).json({
                     message: 'User already exists',

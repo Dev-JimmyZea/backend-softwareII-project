@@ -20,5 +20,5 @@ app.use(cors());
 //routes
 app.use('/user',require('../routes/users'));
 app.use('/career', require('../routes/careers'));
-// app.use('/bill',require('../routes/bills'));
+app.use('/comment',require('../routes/comments'));
 module.exports = app;

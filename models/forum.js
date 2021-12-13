@@ -42,13 +42,12 @@ const forumSchema = new Schema({
         ref: 'comment'
     }],
 
-    // users: [{
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'user'
-    // }]    
+    users: [{
+        type: Schema.Types.ObjectId,
+        ref: 'user'
+    }]    
 
 });
-
 
 module.exports = mongoose.model('forum', forumSchema);
 

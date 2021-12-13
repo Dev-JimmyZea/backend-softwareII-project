@@ -6,10 +6,10 @@ const { getUsers, getUser, createUser, updateUser, deleteUser, login } = require
 const { verifyToken } = require('../utils/auth');
 
 router.get('/', getUsers);
-router.get('/:id',  verifyToken, getUser);
-router.post('/', createUser);
-router.put('/:id', updateUser);
-router.delete('/:id', deleteUser);
+router.get('/:userId', getUser);
+router.post('/', verifyToken, createUser);
+router.put('/:id', verifyToken, updateUser);
+router.delete('/:userId',verifyToken, deleteUser);
 router.post('/login', login);
 
 module.exports = router;

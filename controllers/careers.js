@@ -21,7 +21,15 @@ module.exports = {
     },
     getCareer: async (req, res) => {
         try {
-            const career = await Career.findById(req.params.id);
+            const career = await Career.findOne({
+                code: req.params.code
+            });
+            if (!career) {
+                return res.status(404).json({
+                    message: 'Career not found',
+                });
+            }
+
             return res.status(200).json({
                 message: 'Career fetched successfully',
                 career: career
@@ -35,8 +43,18 @@ module.exports = {
     },
     createCareer: async (req, res) => {
         try {
-            const career = await Career.create(req.body);
-            return res.status(201).json({
+            const career = await new Career(req.body);
+            const careerExist = await Career.findOne({
+                code: career.code
+            });
+            
+            if (careerExist) {
+                return res.status(400).json({
+                    message: 'Career already exists',
+                });
+            }
+
+            return res.status(200).json({
                 message: 'Career created successfully',
                 career: career
             });
@@ -53,6 +71,12 @@ module.exports = {
                 new: true,
                 runValidators: true
             });
+            if (!career) {
+                return res.status(404).json({
+                    message: 'Career not found',
+                });
+            }
+            
             return res.status(200).json({
                 message: 'Career updated successfully',
                 career: career
@@ -67,7 +91,16 @@ module.exports = {
 
     deleteCareer: async (req, res) => {
         try {
-            const career = await Career.findByIdAndDelete(req.params.id);
+            const career = await Career.findOneAndDelete({
+                code: req.params.code
+            });
+
+            if (!career) {
+                return res.status(404).json({
+                    message: 'Career not found',
+                });
+            }
+
             return res.status(200).json({
                 message: 'Career deleted successfully',
                 career: career
