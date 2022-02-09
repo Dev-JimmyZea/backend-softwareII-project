@@ -1,18 +1,16 @@
 'use strict';
 
 const User = require('../models/user');
-// const Career = require('../models/career');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 module.exports = {
     getUsers: async (req, res) => {
         try {
-            // console.log(req.decoded)
             const users = await User.find();
             return res.status(200).json({
                 message: 'Users fetched successfully',
-                users: users
+                data: users
             });
         } catch (err) {
             return res.status(500).json({
@@ -24,7 +22,6 @@ module.exports = {
 
     getUser: async (req, res) => {
         try {
-            console.log(req.params)
             const user = await User.findOne({
                 userId: req.params.userId
             });
@@ -35,7 +32,7 @@ module.exports = {
             }
             return res.status(200).json({
                 message: 'User fetched successfully',
-                user: user
+                data: user
             });
 
         } catch (err) {
@@ -74,7 +71,7 @@ module.exports = {
 
             return res.status(200).json({
                 message: 'User created successfully',
-                newUser: user,
+                data: user,
                 token: token
             });
         } catch (err) {
@@ -99,7 +96,7 @@ module.exports = {
             }
             return res.status(200).json({
                 message: 'User updated successfully',
-                updated_user: user
+                data: user
             });
         } catch (err) {
             return res.status(500).json({
@@ -155,7 +152,7 @@ module.exports = {
             }, process.env.JWT_SECRET, { expiresIn: '1h' });
             return res.status(200).json({
                 message: 'User logged in successfully',
-                user: user,
+                data: user,
                 token: token,                
             });
         } catch (err) {

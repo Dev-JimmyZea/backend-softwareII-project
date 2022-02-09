@@ -8,7 +8,7 @@ module.exports = {
             const comments = await Comment.find();
             return res.status(200).json({
                 message: 'Comments fetched successfully',
-                comments: comments
+                data: comments
             });
         } catch (err) {
             return res.status(500).json({
@@ -31,7 +31,7 @@ module.exports = {
 
             return res.status(200).json({
                 message: 'Comment fetched successfully',
-                comment: comment
+                data: comment
             });
         } catch (err) {
             return res.status(500).json({
@@ -57,7 +57,7 @@ module.exports = {
             
             return res.status(200).json({
                 message: 'Comment created successfully',
-                comment: comment
+                data: comment
             });
         } catch (err) {
             return res.status(500).json({
@@ -81,7 +81,7 @@ module.exports = {
 
             return res.status(200).json({
                 message: 'Comment updated successfully',
-                comment: comment
+                data: comment
             });
         } catch (err) {
             return res.status(500).json({
@@ -105,7 +105,7 @@ module.exports = {
 
             return res.status(200).json({
                 message: 'Comment deleted successfully',
-                comment: comment
+                data: comment
             });
             
         } catch (err) {

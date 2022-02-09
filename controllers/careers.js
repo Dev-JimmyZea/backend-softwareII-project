@@ -1,7 +1,6 @@
 'use strict';
 
 const express = require('express');
-const router = express.Router();
 const Career = require('../models/career');
 
 module.exports = {
@@ -10,7 +9,7 @@ module.exports = {
             const careers = await Career.find();
             return res.status(200).json({
                 message: 'Careers fetched successfully',
-                users: careers
+                data: careers
             });
         } catch (err) {
             return res.status(500).json({
@@ -32,7 +31,7 @@ module.exports = {
 
             return res.status(200).json({
                 message: 'Career fetched successfully',
-                career: career
+                data: career
             });
         } catch (err) {
             return res.status(500).json({
@@ -56,7 +55,7 @@ module.exports = {
 
             return res.status(200).json({
                 message: 'Career created successfully',
-                career: career
+                data: career
             });
         } catch (err) {
             return res.status(500).json({
@@ -79,7 +78,7 @@ module.exports = {
             
             return res.status(200).json({
                 message: 'Career updated successfully',
-                career: career
+                data: career
             });
         } catch (err) {
             return res.status(500).json({
@@ -103,7 +102,7 @@ module.exports = {
 
             return res.status(200).json({
                 message: 'Career deleted successfully',
-                career: career
+                data: career
             });
         } catch (err) {
             return res.status(500).json({
@@ -114,4 +113,3 @@ module.exports = {
     }
     
 };
-
