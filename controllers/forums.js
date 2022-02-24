@@ -1,0 +1,134 @@
+'use strict';
+
+const User = require('../models/user');
+const Forum = require('../models/forum');
+
+module.exports = {
+    getForums: async (req, res) => {
+        try {
+            const forums = await Forum.find();
+            return res.status(200).json({
+                message: 'Forums fetched successfully',
+                data: forums
+            });
+        } catch (err) {
+            return res.status(500).json({
+                message: 'Failed to fetch forums',
+                error: err
+            });
+        }
+    },
+    getForum: async (req, res) => {
+        try {
+            const forum = await Forum.findOne({ 
+                code: req.params.code 
+            });
+
+            if (!forum) {
+                return res.status(404).json({
+                    message: 'Forum not found'
+                });
+            }            
+
+            return res.status(200).json({
+                message: 'Forum fetched successfully',
+                data: forum
+            });
+        } catch (err) {
+            return res.status(500).json({
+                message: 'Failed to fetch forum',
+                error: err
+            });
+        }
+    },
+    createForum: async (req, res) => {
+        try {
+            const user = await User.findOne({
+                userId: req.params.user
+            });
+
+            if (!user) {
+                return res.status(404).json({
+                    message: 'User not found'
+                });
+            }
+
+            const forum = new Forum({
+                ...req.body,
+                users: [user._id]
+            });
+
+            const forumExist = await Forum.findOne({
+                code: forum.code
+            });
+
+            if (forumExist) {
+                return res.status(400).json({
+                    message: 'Forum already exists'
+                });
+            }
+
+            await forum.save();            
+            
+            return res.status(200).json({
+                message: 'Forum created successfully',
+                data: forum
+            });
+        } catch (err) {
+            return res.status(500).json({
+                message: 'Failed to create forum',
+                error: err
+            });
+        }
+    },
+    updateForum: async (req, res) => {
+        try {
+            const forum = await Forum.findByIdAndUpdate(req.params.id, req.body, {
+                new: true,
+                runValidators: true
+            });
+
+            if (!forum) {
+                return res.status(404).json({
+                    message: 'Forum not found'
+                });
+            }
+
+            return res.status(200).json({
+                message: 'Forum updated successfully',
+                data: forum
+            });
+        } catch (err) {
+            return res.status(500).json({
+                message: 'Failed to update forum',
+                error: err
+            });
+        }
+    },
+    deleteForum: async (req, res) => {
+        try {
+            const forum = await Forum.findOneAndDelete({
+                code: req.params.code
+            });
+
+
+            if (!forum) {
+                return res.status(404).json({
+                    message: 'Forum not found'
+                });
+            }
+
+            return res.status(200).json({
+                message: 'Forum deleted successfully',
+                data: forum
+            });
+            
+        } catch (err) {
+            return res.status(500).json({
+                message: 'Failed to delete forum',
+                error: err
+            });
+        }
+    }
+};
+
