@@ -32,7 +32,7 @@ const forumSchema = new Schema({
         default: Date.now
     },
 
-    theme: {
+    topic: {
         type: String,
         required: true
     },
@@ -45,7 +45,7 @@ const forumSchema = new Schema({
     users: [{
         type: Schema.Types.ObjectId,
         ref: 'user'
-    }]    
+    }]
 
 });
 
