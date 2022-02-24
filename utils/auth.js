@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 module.exports = {
     getDataToken: (token) => {
         return new Promise((resolve, reject) => {
-            jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+            jwt.verify(token, 'SECRET', (err, decoded) => {
                 if (err) {
                     reject(err);
                 } else {
@@ -23,7 +23,7 @@ module.exports = {
                 message: 'No token provided.'
             });
         }
-        jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+        jwt.verify(token, 'SECRET', (err, decoded) => {
             if (err) {
                 return res.status(500).send({
                     auth: false,

@@ -65,7 +65,7 @@ module.exports = {
                 email: user.email,
                 role: user.role,
                 name: user.name
-            }, process.env.JWT_SECRET, { expiresIn: '1h' });
+            }, 'SECRET', { expiresIn: '1h' });
 
             await user.save();
 
@@ -149,7 +149,7 @@ module.exports = {
                 email: user.email,
                 role: user.role,
                 name: user.name
-            }, process.env.JWT_SECRET, { expiresIn: '1h' });
+            }, 'SECRET', { expiresIn: '1h' });
             return res.status(200).json({
                 message: 'User logged in successfully',
                 data: user,
