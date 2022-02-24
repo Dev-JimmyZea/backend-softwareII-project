@@ -1,14 +1,14 @@
 'use strict';
 
-const { Router } = require('express');
+import { Router } from 'express';
 const router = Router();
-const { getComments, getComment, createComment, updateComment, deleteComment} = require('../controllers/Comments');
-const { verifyToken } = require('../utils/auth');
+import { getComments, getComment, createComment, updateComment, deleteComment } from '../controllers/Comments';
+import { verifyToken } from '../utils/auth';
 
 router.get('/', getComments);
-router.get('/:code', getComment);
-router.post('/',verifyToken, createComment);
+router.get('/:id', getComment);
+router.post('/:user/forum',verifyToken, createComment);
 router.put('/:id', verifyToken, updateComment);
-router.delete('/:code', verifyToken, deleteComment);
+router.delete('/:id', verifyToken, deleteComment);
 
-module.exports = router;
+export default router;
