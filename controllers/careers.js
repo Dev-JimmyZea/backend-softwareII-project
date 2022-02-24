@@ -1,6 +1,5 @@
 'use strict';
 
-const express = require('express');
 const Career = require('../models/career');
 
 module.exports = {
