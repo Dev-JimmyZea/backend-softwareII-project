@@ -6,12 +6,6 @@ const Schema = mongoose.Schema;
 
 const commentSchema = new Schema({
 
-    code: {
-        type: String,
-        required: true,
-        unique: true   
-    },
-
     text: {
         type: String,
         required: true
@@ -25,13 +19,9 @@ const commentSchema = new Schema({
 
     forum: {
         type: Schema.Types.ObjectId,
-        ref: 'forum'
-    },
-
-    publication: {
-        type: Schema.Types.ObjectId,
-        ref: 'publication'
-    },
+        ref: 'forum',
+        required: true
+    }
 
 });
 

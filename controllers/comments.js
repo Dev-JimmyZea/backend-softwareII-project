@@ -1,6 +1,8 @@
 'use strict';
 
 const Comment = require('../models/comment');
+const Forum = require('../models/forum');
+const User = require('../models/user');
 
 module.exports = {
     getComments: async (req, res) => {
@@ -19,9 +21,7 @@ module.exports = {
     },
     getComment: async (req, res) => {
         try {
-            const comment = await Comment.findOne({ 
-                code: req.params.code 
-            });
+            const comment = await Comment.findById(req.params.id);
 
             if (!comment) {
                 return res.status(404).json({
@@ -42,16 +42,31 @@ module.exports = {
     },
     createComment: async (req, res) => {
         try {
-            const comment = new Comment(req.body);
-            const commentExist = await Comment.findOne({
-                code: comment.code
+            const user = await User.findOne({
+                userId: req.params.user
             });
 
-            if (commentExist) {
-                return res.status(400).json({
-                    message: 'Comment already exists'
+            if (!user) {
+                return res.status(404).json({
+                    message: 'User not found'
                 });
             }
+
+            const forum = await Forum.findOne({
+                code: req.params.forum
+            });
+
+            if (!forum) {
+                return res.status(404).json({
+                    message: 'Forum not found'
+                });
+            }
+
+            const comment = new Comment({
+                ...req.body,
+                user: user._id,
+                forum: forum._id
+            });
 
             await comment.save();            
             
@@ -92,10 +107,7 @@ module.exports = {
     },
     deleteComment: async (req, res) => {
         try {
-            const comment = await Comment.findOneAndDelete({
-                code: req.params.code
-            });
-
+            const comment = await Comment.findbyIdAndDelete(req.params.id);
 
             if (!comment) {
                 return res.status(404).json({
