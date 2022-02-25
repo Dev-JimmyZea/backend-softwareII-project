@@ -23,4 +23,6 @@ app.use('/career', require('../routes/careers').default);
 app.use('/comment',require('../routes/comments').default);
 app.use('/news',require('../routes/news').default);
 app.use('/forum',require('../routes/forums').default);
+app.use('/notification',require('../routes/notifications').default);
+app.use('/work',require('../routes/works').default);
 export default app;
