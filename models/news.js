@@ -29,7 +29,8 @@ const NewsSchema = new Schema({
 
     image: {
         type: String,
-        required: true
+        required: true,
+        default: 'https://pruebas.icde.gov.co/sites/default/files/styles/large/public/2021-09/default-noticias-small.jpg?itok=rrf-tkPp'
     }    
 
 });

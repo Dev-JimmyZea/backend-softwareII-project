@@ -45,7 +45,9 @@ const UserSchema = new Schema({
             'STUDENT',
             'ADMIN',
             'SUPERADMIN'
-        ]
+        ],
+        default: 'STUDENT',
+        required: true
     },
 
     gender: {
@@ -56,12 +58,7 @@ const UserSchema = new Schema({
             'F'
         ],    
         required: true    
-    },
-
-    CV: {
-        type: Buffer,
     }
-
 
 });
 

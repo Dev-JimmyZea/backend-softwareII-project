@@ -21,23 +21,13 @@ const NotificationSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'user'
     },
-
-    publication: {
-        type: Schema.Types.ObjectId,
-        ref: 'publication'
-    },
-
-    news: {
-        type: Schema.Types.ObjectId,
-        ref: 'news'
-    },
-
+    
     forum: {
         type: Schema.Types.ObjectId,
         ref: 'forum'
     },
 
-    comment: {
+    text: {
         type: String,
         required: true
     },
