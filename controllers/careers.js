@@ -52,6 +52,8 @@ module.exports = {
                 });
             }
 
+            await career.save();
+
             return res.status(200).json({
                 message: 'Career created successfully',
                 data: career
