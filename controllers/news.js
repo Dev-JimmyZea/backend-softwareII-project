@@ -21,7 +21,7 @@ module.exports = {
     getNew: async (req, res) => {
         try {
             const new_ = await News.findOne({
-                _id: req.params.id
+                code: req.params.code
             });
             if (!new_) {
                 return res.status(404).json({
@@ -96,7 +96,7 @@ module.exports = {
     deleteNew: async (req, res) => {
         try {
             const new_ = await News.findOneAndDelete({
-                _id: req.params.id
+                code: req.params.code
             });
             if (!new_) {
                 return res.status(404).json({
