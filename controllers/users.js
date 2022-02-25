@@ -85,6 +85,8 @@ module.exports = {
 
     updateUser: async (req, res) => {
         try {
+            req.body.password = await bcrypt.hash(req.body.password, 10);
+
             const user = await User.findByIdAndUpdate(req.params.id, req.body, {
                 new: true,
                 runValidators: true
