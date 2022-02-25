@@ -7,7 +7,7 @@ import { verifyToken } from '../utils/auth';
 
 router.get('/', getForums);
 router.get('/:code', getForum);
-router.post('/:user', verifyToken, createForum);
+router.post('/', verifyToken, createForum);
 router.put('/:id', verifyToken, updateForum);
 router.delete('/:code', verifyToken, deleteForum);
 

@@ -7,7 +7,7 @@ import { verifyToken } from '../utils/auth';
 
 router.get('/', getComments);
 router.get('/:id', getComment);
-router.post('/:user/forum',verifyToken, createComment);
+router.post('/',verifyToken, createComment);
 router.put('/:id', verifyToken, updateComment);
 router.delete('/:id', verifyToken, deleteComment);
 
