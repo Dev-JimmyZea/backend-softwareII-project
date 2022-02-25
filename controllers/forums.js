@@ -44,7 +44,7 @@ module.exports = {
     createForum: async (req, res) => {
         try {
             const user = await User.findOne({
-                userId: req.params.user
+                userId: req.body.user
             });
 
             if (!user) {

@@ -43,7 +43,7 @@ module.exports = {
     createComment: async (req, res) => {
         try {
             const user = await User.findOne({
-                userId: req.params.user
+                userId: req.body.user
             });
 
             if (!user) {
@@ -53,7 +53,7 @@ module.exports = {
             }
 
             const forum = await Forum.findOne({
-                code: req.params.forum
+                code: req.body.forum
             });
 
             if (!forum) {
@@ -107,7 +107,7 @@ module.exports = {
     },
     deleteComment: async (req, res) => {
         try {
-            const comment = await Comment.findbyIdAndDelete(req.params.id);
+            const comment = await Comment.findByIdAndDelete(req.params.id);
 
             if (!comment) {
                 return res.status(404).json({
