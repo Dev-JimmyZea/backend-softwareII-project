@@ -43,8 +43,7 @@ const UserSchema = new Schema({
         trim: true,
         enum: [
             'STUDENT',
-            'ADMIN',
-            'SUPERADMIN'
+            'ADMIN'
         ],
         default: 'STUDENT',
         required: true
