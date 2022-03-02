@@ -45,12 +45,17 @@ const WorkSchema = new Schema({
         default: true
     },
 
-    image: {
+    images: [{
         type: String,
-        required: true,
-        default: 'https://www.turijobs.com/blog/wp-content/uploads/2018/07/31378593453_29bc0f1726_o-1-1024x659.jpg'
+        required: true
+    }],
+
+    created_at: {
+        type: Date,
+        default: Date.now
     }
 
 });
 
 module.exports = mongoose.model('work', WorkSchema);
+

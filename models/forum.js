@@ -45,7 +45,13 @@ const forumSchema = new Schema({
     users: [{
         type: Schema.Types.ObjectId,
         ref: 'user'
+    }],
+
+    images: [{
+        type: String,
+
     }]
+
 
 });
 
