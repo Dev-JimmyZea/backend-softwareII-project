@@ -27,11 +27,10 @@ const NewsSchema = new Schema({
         default: Date.now
     },
 
-    image: {
+    images: [{
         type: String,
         required: true,
-        default: 'https://pruebas.icde.gov.co/sites/default/files/styles/large/public/2021-09/default-noticias-small.jpg?itok=rrf-tkPp'
-    }    
+    }]
 
 });
 
