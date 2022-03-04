@@ -155,7 +155,7 @@ module.exports = {
             return res.status(200).json({
                 message: 'User logged in successfully',
                 data: user,
-                token: token,                
+                token: token
             });
         } catch (err) {
             return res.status(500).json({
