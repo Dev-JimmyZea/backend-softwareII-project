@@ -111,6 +111,27 @@ module.exports = {
                 error: err
             });
         }
+    },
+
+    deleteAllCareers: async (req, res) => {
+        try {
+            const careers = await Career.deleteMany();
+            if (!careers) {
+                return res.status(404).json({
+                    message: 'Careers not found',
+                });
+            }
+
+            return res.status(200).json({
+                message: 'Careers deleted successfully',
+                data: careers
+            });
+        } catch (err) {
+            return res.status(500).json({
+                message: 'Failed to delete careers',
+                error: err
+            });
+        }
     }
     
 };

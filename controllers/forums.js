@@ -129,6 +129,28 @@ module.exports = {
                 error: err
             });
         }
+    },
+
+    deleteAllForums: async (req, res) => {
+        try {
+            const forums = await Forum.deleteMany();
+
+            if (!forums) {
+                return res.status(404).json({
+                    message: 'Forums not found'
+                });
+            }
+
+            return res.status(200).json({
+                message: 'Forums deleted successfully',
+                data: forums
+            });
+        } catch (err) {
+            return res.status(500).json({
+                message: 'Failed to delete forums',
+                error: err
+            });
+        }
     }
 };
 

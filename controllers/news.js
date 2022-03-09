@@ -113,6 +113,26 @@ module.exports = {
                 error: err
             });
         }
+    },
+
+    deleteAllNews: async (req, res) => {
+        try {
+            const news = await News.deleteMany({});
+            if (!news) {
+                return res.status(404).json({
+                    message: 'News not found',
+                });
+            }
+            return res.status(200).json({
+                message: 'News deleted successfully',
+                data: news
+            });
+        } catch (err) {
+            return res.status(500).json({
+                message: 'Failed to delete news',
+                error: err
+            });
+        }
     }
 
 };
