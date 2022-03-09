@@ -47,10 +47,9 @@ const forumSchema = new Schema({
         ref: 'user'
     }],
 
-    images: [{
-        type: String,
-
-    }]
+    image: {
+        type: String
+    }
 
 
 });

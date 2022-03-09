@@ -40,19 +40,20 @@ const WorkSchema = new Schema({
         required: true
     },
 
-    is_active: {
-        type: Boolean,
-        default: true
-    },
-
-    images: [{
+    image: {
         type: String,
-        required: true
-    }],
+        required: true,
+        default: "https://www.uptc.edu.co/sitio/export/sites/default/portal/.galleries/gal_fon_por/2sem_2021/fot_port_uptc_0" + Math.floor(Math.random() * 15) + ".jpg"
+    },
 
     created_at: {
         type: Date,
         default: Date.now
+    },
+
+    valid_until: {
+        type: Date,
+        required: true
     }
 
 });

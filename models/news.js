@@ -27,11 +27,11 @@ const NewsSchema = new Schema({
         default: Date.now
     },
 
-    images: [{
+    image: {
         type: String,
         required: true,
-    }]
-
+        default: "https://source.unsplash.com/category/technology/"
+    }
 });
 
 
