@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "co": "sui-mono commit",
-    "dev": "nodemon src/index.js --ignore node_modules",
-    "devbabel": "nodemon src/index.js --exec babel-node",
+    "dev": "cross-env NODE_ENV=development nodemon src/index.js --ignore node_modules",
+    "devbabel": "cross-env NODE_ENV=development nodemon src/index.js --exec babel-node",
+    "start": "cross-env NODE_ENV=production node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,13 +22,17 @@
   },
   "homepage": "https://github.com/JimmyZea/backend-softwareII-project#readme",
   "dependencies": {
-    "@s-ui/mono": "2.21.0",
+    "@s-ui/mono": "2.22.0",
     "bcrypt": "5.0.1",
+    "cloudinary": "1.28.1",
     "cors": "2.8.5",
+    "cross-env": "7.0.3",
     "dotenv": "16.0.0",
     "express": "4.17.3",
+    "fs-extra": "^10.0.1",
     "jsonwebtoken": "8.5.1",
-    "mongoose": "6.2.3"
+    "mongoose": "6.2.5",
+    "multer": "^1.4.4"
   },
   "devDependencies": {
     "@babel/cli": "7.17.6",
