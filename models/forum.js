@@ -1,8 +1,5 @@
-'use strict';
-
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
 const forumSchema = new Schema({
 
@@ -52,9 +49,9 @@ const forumSchema = new Schema({
     }
 
 
-});
+})
 
-module.exports = mongoose.model('forum', forumSchema);
+module.exports = mongoose.model('forum', forumSchema)
 
 
 

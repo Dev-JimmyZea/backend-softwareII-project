@@ -1,7 +1,5 @@
-'use strict';
-
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
 const WorkSchema = new Schema({
     code: {
@@ -56,7 +54,7 @@ const WorkSchema = new Schema({
         required: true
     }
 
-});
+})
 
-module.exports = mongoose.model('work', WorkSchema);
+module.exports = mongoose.model('work', WorkSchema)
 

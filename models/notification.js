@@ -1,7 +1,5 @@
-'use strict';
-
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
 
 const NotificationSchema = new Schema({
@@ -36,8 +34,8 @@ const NotificationSchema = new Schema({
         type: Boolean,
         default: false
     }
-});
+})
 
 
-module.exports = mongoose.model('notification', NotificationSchema);
+module.exports = mongoose.model('notification', NotificationSchema)
 

@@ -1,5 +1,3 @@
-'use strict';
-
 const jwt = require('jsonwebtoken');
 
 module.exports = {
@@ -30,7 +28,6 @@ module.exports = {
                     message: 'Failed to authenticate token.'
                 });
             }
-            // if everything good, save to request for use in other routes
             req.decoded = decoded;
             next();
         });

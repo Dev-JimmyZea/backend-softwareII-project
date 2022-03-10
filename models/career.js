@@ -1,7 +1,5 @@
-'use strict';
-
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
 
 const careerSchema = new Schema({
@@ -35,9 +33,9 @@ const careerSchema = new Schema({
         ]
     },
 
-});
+})
 
 
-module.exports = mongoose.model('career', careerSchema);
+module.exports = mongoose.model('career', careerSchema)
 
 
