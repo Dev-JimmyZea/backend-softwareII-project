@@ -1,28 +1,28 @@
-'use strict';
+import express, { json, urlencoded } from 'express'
+import cors from 'cors'
+import '../drivers/connect-mongo'
 
-import express, { json, urlencoded } from 'express';
+const { appConfig } = require('../src/config').default
+const { port, host } = appConfig
 
-const app = express();
-import cors from 'cors';
-
-import '../drivers/connect-mongo';
-require('dotenv').config();
+const app = express()
 
 //settings
-app.set('port', process.env.PORT || 4000);
+app.set('port',port || 4000)
+app.set('host',host || 'localhost')
 
 //middlewares
-app.use(json());
-app.use(urlencoded({ extended: true }));
-app.use(cors());
-
+app.use(json())
+app.use(urlencoded({ extended: true }))
+app.use(cors())
 
 //routes
-app.use('/user',require('../routes/users').default);
-app.use('/career', require('../routes/careers').default);
-app.use('/comment',require('../routes/comments').default);
-app.use('/news',require('../routes/news').default);
-app.use('/forum',require('../routes/forums').default);
-app.use('/notification',require('../routes/notifications').default);
-app.use('/work',require('../routes/works').default);
-export default app;
+app.use('/user',require('../routes/users').default)
+app.use('/career', require('../routes/careers').default)
+app.use('/comment',require('../routes/comments').default)
+app.use('/news',require('../routes/news').default)
+app.use('/forum',require('../routes/forums').default)
+app.use('/notification',require('../routes/notifications').default)
+app.use('/work',require('../routes/works').default)
+app.use('/public', express.static(`${__dirname}/../public/imgs`))
+export default app
