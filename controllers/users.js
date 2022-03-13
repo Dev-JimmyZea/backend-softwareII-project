@@ -1,11 +1,12 @@
 const User = require('../models/user')
+const Career = require('../models/career')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
 module.exports = {
     getUsers: async (req, res) => {
         try {
-            const users = await User.find()
+            const users = await User.find().populate('career')
             return res.status(200).json({
                 message: 'Users fetched successfully',
                 data: users
@@ -20,9 +21,7 @@ module.exports = {
 
     getUser: async (req, res) => {
         try {
-            const user = await User.findOne({
-                userId: req.params.userId
-            })
+            const user = await User.findById(req.params.id).populate('career')
             if (!user) {
                 return res.status(404).json({
                     message: 'User not found',
@@ -54,6 +53,19 @@ module.exports = {
                 return res.status(400).json({
                     message: 'User already exists',
                 })
+            }
+
+            if (req.body.career) {
+                const career = await Career.findOne({
+                    careerId: req.body.career
+                })
+                user.career = career
+                if (!career) {
+                    return res.status(404).json({
+                        message: 'Career not found',
+                    })
+                }
+                
             }
 
             user.password = await bcrypt.hash(user.password, 10)
@@ -108,9 +120,7 @@ module.exports = {
 
     deleteUser: async (req, res) => {
         try {
-            const user = await User.findOneAndDelete({
-                userId: req.params.userId
-            })
+            const user = await User.findByIdAndDelete(req.params.id)
             if (!user) {
                 return res.status(404).json({
                     message: 'User not found',
@@ -123,6 +133,26 @@ module.exports = {
         } catch (err) {
             return res.status(500).json({
                 message: 'Failed to delete user',
+                error: err
+            })
+        }
+    },
+
+    deleteAllUsers: async (req, res) => {
+        try {
+            const users = await User.deleteMany()
+            if (!users) {
+                return res.status(404).json({
+                    message: 'Users not found',
+                })
+            }
+            return res.status(200).json({
+                message: 'Users deleted successfully',
+                data: users
+            })
+        } catch (err) {
+            return res.status(500).json({
+                message: 'Failed to delete users',
                 error: err
             })
         }
