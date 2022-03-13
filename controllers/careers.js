@@ -17,9 +17,7 @@ module.exports = {
     },
     getCareer: async (req, res) => {
         try {
-            const career = await Career.findOne({
-                code: req.params.code
-            })
+            const career = await Career.findById(req.params.id)
             if (!career) {
                 return res.status(404).json({
                     message: 'Career not found',
@@ -65,10 +63,22 @@ module.exports = {
     },
     updateCareer: async (req, res) => {
         try {
+            
+            const careerExist = await Career.findOne({
+                code: req.body.code
+            })
+            
+            if (careerExist) {
+                return res.status(400).json({
+                    message: 'Career already exists',
+                })
+            }
+            
             const career = await Career.findByIdAndUpdate(req.params.id, req.body, {
                 new: true,
                 runValidators: true
             })
+
             if (!career) {
                 return res.status(404).json({
                     message: 'Career not found',
@@ -89,10 +99,7 @@ module.exports = {
 
     deleteCareer: async (req, res) => {
         try {
-            const career = await Career.findOneAndDelete({
-                code: req.params.code
-            })
-
+            const career = await Career.findByIdAndDelete(req.params.id)
             if (!career) {
                 return res.status(404).json({
                     message: 'Career not found',
