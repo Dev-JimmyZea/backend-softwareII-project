@@ -13,7 +13,7 @@ app.set('host',host || 'localhost')
 
 //middlewares
 app.use(json())
-app.use(urlencoded({ extended: true }))
+app.use(urlencoded({ extended: false }))
 app.use(cors())
 
 //routes
