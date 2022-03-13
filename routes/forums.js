@@ -6,7 +6,7 @@ import upload from '../libs/storage'
 
 router.get('/', getForums)
 router.get('/:code', getForum)
-router.post('/', upload.single('image'), createForum)
+router.post('/',verifyToken, upload.single('image'), createForum)
 router.put('/:id', verifyToken, updateForum)
 router.delete('/:code', verifyToken, deleteForum)
 router.delete('/', verifyToken, deleteAllForums)
