@@ -6,11 +6,16 @@ const jwt = require('jsonwebtoken')
 module.exports = {
     getUsers: async (req, res) => {
         try {
-            const users = await User.find().populate('career')
+            const users = await User.find({
+                role: {
+                    $ne: 'SUPERADMIN'
+                }
+            }).populate('career')
             return res.status(200).json({
                 message: 'Users fetched successfully',
                 data: users
             })
+
         } catch (err) {
             return res.status(500).json({
                 message: 'Failed to fetch users',
@@ -45,20 +50,22 @@ module.exports = {
 
             const user = new User(req.body)
 
-            const userExist = await User.findOne({
+            const userEmailExist = await User.findOne({
                 email: user.email
             })
+
+            const userIdExist = await User.findOne({
+                userId: user.userId
+            })
             
-            if (userExist) {
+            if (userEmailExist || userIdExist) {
                 return res.status(400).json({
                     message: 'User already exists',
                 })
             }
 
             if (req.body.career) {
-                const career = await Career.findOne({
-                    careerId: req.body.career
-                })
+                const career = await Career.findById(req.body.career)
                 user.career = career
                 if (!career) {
                     return res.status(404).json({
@@ -140,7 +147,11 @@ module.exports = {
 
     deleteAllUsers: async (req, res) => {
         try {
-            const users = await User.deleteMany()
+            const users = await User.deleteMany({
+                role: {
+                    $ne: 'SUPERADMIN'
+                }
+            })
             if (!users) {
                 return res.status(404).json({
                     message: 'Users not found',
@@ -150,6 +161,7 @@ module.exports = {
                 message: 'Users deleted successfully',
                 data: users
             })
+
         } catch (err) {
             return res.status(500).json({
                 message: 'Failed to delete users',
