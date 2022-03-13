@@ -4,10 +4,10 @@ import { getCareers, getCareer, createCareer, updateCareer, deleteCareer, delete
 import { verifyToken } from '../utils/auth'
 
 router.get('/', getCareers)
-router.get('/:code', getCareer)
+router.get('/:id', verifyToken, getCareer)
 router.post('/', verifyToken, createCareer)
 router.put('/:id', verifyToken, updateCareer)
-router.delete('/:code', verifyToken, deleteCareer)
+router.delete('/:id', verifyToken, deleteCareer)
 router.delete('/', verifyToken, deleteAllCareers)
 
 export default router
