@@ -83,10 +83,10 @@ module.exports = {
             if (req.file) {
                 const result = await cloudinary.v2.uploader.upload(req.file.path)
                 forum.image = result.secure_url
+                await fs.unlink(req.file.path)
             }
             await forum.save()
 
-            await fs.unlink(req.file.path)
 
             return res.status(200).json({
                 message: 'Forum created successfully',
