@@ -6,10 +6,10 @@ import upload from '../libs/storage'
 
 
 router.get('/', getNews)
-router.get('/:code', verifyToken, getNew)
+router.get('/:id', getNew)
 router.post('/', verifyToken, upload.single('image'), createNew)
 router.put('/:id', verifyToken, updateNew)
-router.delete('/:code',verifyToken, deleteNew)
+router.delete('/:id',verifyToken, deleteNew)
 router.delete('/', verifyToken, deleteAllNews)
 
 export default router

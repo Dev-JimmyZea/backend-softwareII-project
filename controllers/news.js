@@ -32,9 +32,7 @@ module.exports = {
 
     getNew: async (req, res) => {
         try {
-            const new_ = await News.findOne({
-                code: req.params.code
-            })
+            const new_ = await News.findById(req.params.id)
             if (!new_) {
                 return res.status(404).json({
                     message: 'New not found',
@@ -113,9 +111,7 @@ module.exports = {
 
     deleteNew: async (req, res) => {
         try {
-            const new_ = await News.findOneAndDelete({
-                code: req.params.code
-            })
+            const new_ = await News.findByIdAndDelete(req.params.id)
             if (!new_) {
                 return res.status(404).json({
                     message: 'New not found',

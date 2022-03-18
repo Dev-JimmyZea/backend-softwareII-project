@@ -32,9 +32,7 @@ module.exports = {
 
     getWork: async (req, res) => {
         try {
-            const work = await Works.findOne({
-                code: req.params.code
-            }).populate('applicants')
+            const work = await Works.findById(req.params.id).populate('applicants')
             if (!work) {
                 return res.status(404).json({
                     message: 'Work not found',
@@ -114,9 +112,7 @@ module.exports = {
 
     deleteWork: async (req, res) => {
         try {
-            const work = await Works.findOneAndDelete({
-                code: req.params.code
-            })
+            const work = await Works.findByIdAndDelete(req.params.id)
             if (!work) {
                 return res.status(404).json({
                     message: 'Work not found',

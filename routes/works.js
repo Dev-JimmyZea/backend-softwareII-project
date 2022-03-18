@@ -5,10 +5,10 @@ import { verifyToken } from '../utils/auth'
 import upload from '../libs/storage'
 
 router.get('/', getWorks)
-router.get('/:code', verifyToken, getWork)
+router.get('/:id', verifyToken, getWork)
 router.post('/', verifyToken, upload.single('image'), createWork)
 router.put('/:id', verifyToken, updateWork)
-router.delete('/:code',verifyToken, deleteWork)
+router.delete('/:id',verifyToken, deleteWork)
 router.delete('/', verifyToken, deleteAllWorks)
 router.put('/:code/:id', verifyToken, addApplicant)
 router.put('/remove/:code/:id', verifyToken, removeApplicant)
