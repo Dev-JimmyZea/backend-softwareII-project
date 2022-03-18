@@ -67,11 +67,13 @@ module.exports = {
             const careerExist = await Career.findOne({
                 code: req.body.code
             })
-            
+
             if (careerExist) {
-                return res.status(400).json({
-                    message: 'Career already exists',
-                })
+                if (careerExist._id.toString() !== req.params.id) {
+                    return res.status(400).json({
+                        message: 'Career already exists',
+                    })
+                }
             }
             
             const career = await Career.findByIdAndUpdate(req.params.id, req.body, {
