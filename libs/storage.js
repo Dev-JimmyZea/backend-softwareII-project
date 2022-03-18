@@ -6,7 +6,7 @@ const storage = diskStorage({
         cb(null, './public/imgs')
     },
     filename: (req, file, cb) => {
-        const url = `${file.fieldname}-${Date.now()}.${path.extname(file.originalname)}`
+        const url = `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`
         cb(null, url)
     }
 })

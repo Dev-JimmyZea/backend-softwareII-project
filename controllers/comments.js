@@ -17,6 +17,7 @@ module.exports = {
             })
         }
     },
+
     getComment: async (req, res) => {
         try {
             const comment = await Comment.findById(req.params.id)
@@ -38,6 +39,7 @@ module.exports = {
             })
         }
     },
+
     createComment: async (req, res) => {
         try {
             const user = await User.findOne({
@@ -61,17 +63,22 @@ module.exports = {
             }
 
             const comment = new Comment({
-                ...req.body,
+                text: req.body.text,
                 user: user._id,
                 forum: forum._id
             })
 
-            await comment.save()            
+            forum.comments.push(comment)
+            forum.users.push(user)
+            await comment.save()
+            await forum.save()
+            await user.save()         
             
             return res.status(200).json({
                 message: 'Comment created successfully',
                 data: comment
             })
+
         } catch (err) {
             return res.status(500).json({
                 message: 'Failed to create comment',
@@ -79,6 +86,7 @@ module.exports = {
             })
         }
     },
+
     updateComment: async (req, res) => {
         try {
             const comment = await Comment.findByIdAndUpdate(req.params.id, req.body, {
@@ -103,6 +111,7 @@ module.exports = {
             })
         }
     },
+    
     deleteComment: async (req, res) => {
         try {
             const comment = await Comment.findByIdAndDelete(req.params.id)

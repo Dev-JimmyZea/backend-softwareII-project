@@ -41,7 +41,7 @@ const WorkSchema = new Schema({
     image: {
         type: String,
         required: true,
-        default: "https://www.uptc.edu.co/sitio/export/sites/default/portal/.galleries/gal_fon_por/2sem_2021/fot_port_uptc_0" + Math.floor(Math.random() * 15) + ".jpg"
+        default: "https://www.uptc.edu.co/sitio/export/sites/default/portal/.galleries/gal_fon_por/2sem_2021/fot_port_uptc_0" + Math.floor(Math.random() * 15 + 1) + ".jpg"
     },
 
     created_at: {

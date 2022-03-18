@@ -102,6 +102,18 @@ module.exports = {
 
     updateUser: async (req, res) => {
         try {
+            const userExist = await User.findOne({
+                userId: req.body.userId
+            })
+
+            if (userExist) {
+                if (userExist._id.toString() !== req.params.id) {
+                    return res.status(400).json({
+                        message: 'User already exists',
+                    })
+                }
+            }
+
             req.body.password = await bcrypt.hash(req.body.password, 10)
 
             const user = await User.findByIdAndUpdate(req.params.id, req.body, {

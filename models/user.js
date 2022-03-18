@@ -56,6 +56,16 @@ const UserSchema = new Schema({
             'F'
         ],    
         required: true    
+    },
+
+    notifications: [{
+        type: Schema.Types.ObjectId,
+        ref: 'notification'
+    }],
+
+    image: {
+        type: String,
+        default: 'https://res.cloudinary.com/jimmyzea03/image/upload/v1647266271/profile_image_xaeghv.jpg'
     }
 
 })

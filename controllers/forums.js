@@ -19,7 +19,7 @@ const fs = require('fs-extra')
 module.exports = {
     getForums: async (req, res) => {
         try {
-            const forums = await Forum.find()
+            const forums = await Forum.find().populate('users comments')
             return res.status(200).json({
                 message: 'Forums fetched successfully',
                 data: forums
@@ -33,9 +33,7 @@ module.exports = {
     },
     getForum: async (req, res) => {
         try {
-            const forum = await Forum.findOne({
-                code: req.params.code
-            })
+            const forum = await Forum.findById(req.params.id).populate('users comments')
 
             if (!forum) {
                 return res.status(404).json({
@@ -80,13 +78,14 @@ module.exports = {
                     message: 'Forum already exists'
                 })
             }
+            
             if (req.file) {
                 const result = await cloudinary.v2.uploader.upload(req.file.path)
                 forum.image = result.secure_url
                 await fs.unlink(req.file.path)
             }
-            await forum.save()
 
+            await forum.save()
 
             return res.status(200).json({
                 message: 'Forum created successfully',
@@ -125,10 +124,7 @@ module.exports = {
     },
     deleteForum: async (req, res) => {
         try {
-            const forum = await Forum.findOneAndDelete({
-                code: req.params.code
-            })
-
+            const forum = await Forum.findByIdAndDelete(req.params.id).populate('users comments')
 
             if (!forum) {
                 return res.status(404).json({

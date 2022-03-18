@@ -1,5 +1,19 @@
 const Works = require('../models/work')
 
+const { cloudinaryConfig } = require('../src/config').default
+
+const { cloud_name, api_key, api_secret } = cloudinaryConfig
+
+const cloudinary = require('cloudinary')
+
+cloudinary.config({
+    cloud_name,
+    api_key,
+    api_secret
+})
+
+const fs = require('fs-extra')
+
 module.exports = {
     getWorks: async (req, res) => {
         try {
@@ -52,6 +66,12 @@ module.exports = {
                 return res.status(400).json({
                     message: 'Work already exists',
                 })
+            }
+
+            if (req.file) {
+                const result = await cloudinary.v2.uploader.upload(req.file.path)
+                work.image = result.secure_url
+                await fs.unlink(req.file.path)
             }
 
             const worksaved = await work.save()
