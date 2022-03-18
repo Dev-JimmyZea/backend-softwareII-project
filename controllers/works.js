@@ -17,7 +17,7 @@ const fs = require('fs-extra')
 module.exports = {
     getWorks: async (req, res) => {
         try {
-            const works = await Works.find()
+            const works = await Works.find().populate('applicants')
             return res.status(200).json({
                 message: 'Works fetched successfully',
                 data: works
@@ -34,7 +34,7 @@ module.exports = {
         try {
             const work = await Works.findOne({
                 code: req.params.code
-            })
+            }).populate('applicants')
             if (!work) {
                 return res.status(404).json({
                     message: 'Work not found',
