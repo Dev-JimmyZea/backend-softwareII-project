@@ -1,15 +1,15 @@
 import { Router } from 'express'
 const router = Router()
-import { getNews, getNew, createNew, updateNew, deleteNew, deleteAllNews } from '../controllers/news'
+import { getNews, getOneNews, createNews, updateNews, deleteNews, deleteAllNews } from '../controllers/news'
 import { verifyToken } from '../utils/auth'
 import upload from '../libs/storage'
 
 
 router.get('/', getNews)
-router.get('/:id', getNew)
-router.post('/', verifyToken, upload.single('image'), createNew)
-router.put('/:id', verifyToken, updateNew)
-router.delete('/:id',verifyToken, deleteNew)
+router.get('/:id', getOneNews)
+router.post('/', verifyToken, upload.single('image'), createNews)
+router.put('/:id', verifyToken, updateNews)
+router.delete('/:id',verifyToken, deleteNews)
 router.delete('/', verifyToken, deleteAllNews)
 
 export default router
