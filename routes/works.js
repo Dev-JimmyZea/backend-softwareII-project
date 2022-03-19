@@ -10,7 +10,7 @@ router.post('/', verifyToken, upload.single('image'), createWork)
 router.put('/:id', verifyToken, updateWork)
 router.delete('/:id',verifyToken, deleteWork)
 router.delete('/', verifyToken, deleteAllWorks)
-router.put('/:code/:id', verifyToken, addApplicant)
-router.put('/remove/:code/:id', verifyToken, removeApplicant)
+router.put('/:idWork/:id', verifyToken, addApplicant)
+router.put('/remove/:idWork/:id', verifyToken, removeApplicant)
 
 export default router

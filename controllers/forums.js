@@ -19,7 +19,13 @@ const fs = require('fs-extra')
 module.exports = {
     getForums: async (req, res) => {
         try {
-            const forums = await Forum.find().populate('users comments')
+            const forums = await Forum.find().populate({
+                path: 'comments',
+                populate: {
+                    path: 'user',
+                }
+            })
+            
             return res.status(200).json({
                 message: 'Forums fetched successfully',
                 data: forums
@@ -33,7 +39,12 @@ module.exports = {
     },
     getForum: async (req, res) => {
         try {
-            const forum = await Forum.findById(req.params.id).populate('users comments')
+            const forum = await Forum.findById(req.params.id).populate({
+                path: 'comments',
+                populate: {
+                    path: 'user',
+                }
+            })
 
             if (!forum) {
                 return res.status(404).json({

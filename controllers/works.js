@@ -154,7 +154,7 @@ module.exports = {
         try {
 
             const work = await Works.findOneAndUpdate({
-                code: req.params.code
+                _id: req.params.idWork
             }, {
                 $push: {
                     applicants: req.params.id
@@ -182,7 +182,7 @@ module.exports = {
     removeApplicant: async (req, res) => {
         try {
             const work = await Works.findOneAndUpdate({
-                code: req.params.code
+                _id: req.params.idWork
             }, {
                 $pull: {
                     applicants: req.params.id

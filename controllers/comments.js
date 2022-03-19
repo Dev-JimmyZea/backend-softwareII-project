@@ -5,7 +5,8 @@ const User = require('../models/user')
 module.exports = {
     getComments: async (req, res) => {
         try {
-            const comments = await Comment.find()
+            // const comments = await Comment.find().populate('user', 'name lastName email role').populate('forum', 'name').populate('responses', 'text user forum created_at is_response response_to responses')
+            const comments = await Comment.find().populate('user forum')
             return res.status(200).json({
                 message: 'Comments fetched successfully',
                 data: comments
@@ -20,7 +21,7 @@ module.exports = {
 
     getComment: async (req, res) => {
         try {
-            const comment = await Comment.findById(req.params.id)
+            const comment = await Comment.findById(req.params.id).populate('user forum')
 
             if (!comment) {
                 return res.status(404).json({
@@ -42,9 +43,7 @@ module.exports = {
 
     createComment: async (req, res) => {
         try {
-            const user = await User.findOne({
-                userId: req.body.user
-            })
+            const user = await User.findById(req.body.user)
 
             if (!user) {
                 return res.status(404).json({
@@ -53,7 +52,7 @@ module.exports = {
             }
 
             const forum = await Forum.findOne({
-                code: req.body.forum
+                _id: req.body.forum
             })
 
             if (!forum) {
@@ -65,7 +64,8 @@ module.exports = {
             const comment = new Comment({
                 text: req.body.text,
                 user: user._id,
-                forum: forum._id
+                forum: forum._id,
+                response_to: req.body.response_to
             })
 
             forum.comments.push(comment)
