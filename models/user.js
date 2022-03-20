@@ -65,7 +65,7 @@ const UserSchema = new Schema({
 
     image: {
         type: String,
-        default: 'https://res.cloudinary.com/jimmyzea03/image/upload/v1647266271/profile_image_xaeghv.jpg'
+        default: 'https://res.cloudinary.com/jimmyzea03/image/upload/v1647659251/rmwwy26w14goverqedb1.jpg'
     }
 
 })
