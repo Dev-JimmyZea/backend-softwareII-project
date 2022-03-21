@@ -1,5 +1,7 @@
 const Works = require('../models/work')
 
+const User = require('../models/user')
+
 const { cloudinaryConfig } = require('../src/config').default
 
 const { cloud_name, api_key, api_secret } = cloudinaryConfig
@@ -161,7 +163,7 @@ module.exports = {
                 }
             }, {
                 new: true
-            })
+            }).populate('applicants')
             if (!work) {
                 return res.status(404).json({
                     message: 'Work not found',
@@ -189,7 +191,7 @@ module.exports = {
                 }
             }, {
                 new: true
-            })
+            }).populate('applicants')
             if (!work) {
                 return res.status(404).json({
                     message: 'Work not found',
@@ -202,6 +204,28 @@ module.exports = {
         } catch (err) {
             return res.status(500).json({
                 message: 'Failed to remove applicant',
+                error: err
+            })
+        }
+    },
+    
+    getWorksByUser: async (req, res) => {
+        try {
+            const works = await Works.find({
+                applicants: req.params.id
+            })
+            if (!works) {
+                return res.status(404).json({
+                    message: 'Works not found',
+                })
+            }
+            return res.status(200).json({
+                message: 'Works fetched successfully',
+                data: works
+            })
+        } catch (err) {
+            return res.status(500).json({
+                message: 'Failed to fetch works',
                 error: err
             })
         }
