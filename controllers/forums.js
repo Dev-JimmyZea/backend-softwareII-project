@@ -25,7 +25,7 @@ module.exports = {
                     path: 'user',
                 }
             })
-            
+
             return res.status(200).json({
                 message: 'Forums fetched successfully',
                 data: forums
@@ -89,7 +89,7 @@ module.exports = {
                     message: 'Forum already exists'
                 })
             }
-            
+
             if (req.file) {
                 const result = await cloudinary.v2.uploader.upload(req.file.path)
                 forum.image = result.secure_url
@@ -173,6 +173,42 @@ module.exports = {
         } catch (err) {
             return res.status(500).json({
                 message: 'Failed to delete forums',
+                error: err
+            })
+        }
+    },
+
+    getForumsByUser: async (req, res) => {
+        try {
+            const user = await User.findById(req.params.id)
+
+            if (!user) {
+                return res.status(404).json({
+                    message: 'User not found'
+                })
+            }
+
+            const forums = await Forum.find()
+
+            const userForums = forums.filter(forum => {
+                return forum.users[0].toString() === user._id.toString()
+            })
+            
+            if (userForums.length === 0) {
+                return res.status(404).json({
+                    message: 'User has no forums'
+                })
+            }
+
+            return res.status(200).json({
+                message: 'Forums user fetched successfully',
+                data: userForums
+            })
+
+
+        } catch (err) {
+            return res.status(500).json({
+                message: 'Failed to fetch forums',
                 error: err
             })
         }
