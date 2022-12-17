@@ -1,6 +1,6 @@
 import { Router } from 'express'
 const router = Router()
-import { getComments, getComment, createComment, updateComment, deleteComment } from '../controllers/Comments'
+import { getComments, getComment, createComment, updateComment, deleteComment } from '../controllers/comments'
 import { verifyToken } from '../utils/auth'
 
 router.get('/', verifyToken, getComments)
