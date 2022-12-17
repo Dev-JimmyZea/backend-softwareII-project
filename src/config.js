@@ -1,5 +1,5 @@
-process.env.NODE_ENV === 'development' ? require('dotenv').config() : null
-
+// process.env.NODE_ENV === 'development' ? require('dotenv').config() : null
+require('dotenv').config()
 const config = {
     appConfig: {
         host: process.env.APP_HOST,
