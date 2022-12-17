@@ -8,8 +8,8 @@ const { port, host } = appConfig
 const app = express()
 
 //settings
-app.set('port',port)
-app.set('host',host)
+app.set('port',process.env.PORT || port)
+app.set('host',process.env.HOST || host)
 
 //middlewares
 app.use(json())
